@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import {RedisAdapter} from "@grammyjs/storage-redis";
 import {UserFromGetMe} from "@grammyjs/types";
 import consola from "consola";
@@ -24,10 +25,10 @@ bot.use(session({
 }));
 
 // Set up middlewares
-import("./middlewares/saveUsersToDb").then(({default: handler}) => bot.use(handler));
+bot.use(require("./middlewares/saveUsersToDb"));
 
 // Main handlers
-import("./handlers/onStart").then(({default: handler}) => bot.command("start", handler));
+bot.command("start", require("./handlers/onStart"));
 
 // Handle bot errors
 bot.catch((error) => {
